@@ -1,15 +1,19 @@
+import { BROWSER, EXTENSIONS_ID } from "../constants.js"
+
 const url = window.location.search
 const urlParams = new URLSearchParams(url)
 const browser = urlParams.get('b')
-if(browser){
+console.log(BROWSER)
+// console.log(process.env.NAME)
+
+if(browser) {
   if(browser == 'c') {
     let token = JSON.parse(localStorage.getItem('chrome_token'))
     if(token) {
-      window.location.replace(`chrome-extension://loliglbconoogcjanejkjohbiabmejjf/options.html?token=${JSON.stringify(token)}`)
-      // window.open(`chrome-extension://loliglbconoogcjanejkjohbiabmejjf/options.html`)
-      // window.location.href = `chrome-extension://loliglbconoogcjanejkjohbiabmejjf/`
-      // window.location.assign('chrome-extension://loliglbconoogcjanejkjohbiabmejjf/options.html');
+      window.location.replace(`chrome-extension://${process.env.CHROME_2}/options.html?token=${JSON.stringify(token)}`)
     }
+  } else {
+    console.log(process.env.CHROME_2)
   }
 }
 
@@ -59,8 +63,5 @@ document.addEventListener('DOMContentLoaded',() => {
     localStorage.setItem('chrome_token',JSON.stringify(tokens.chrome))
     localStorage.setItem('firefox_token',JSON.stringify(tokens.firefox))
     localStorage.setItem('edge_token',JSON.stringify(tokens.edge))
+    // console.log(BROWSER)
 })
-
-function getToken(browserName) {
-  console.log(localStorage.getItem(`${browserName}_token`))
-}
